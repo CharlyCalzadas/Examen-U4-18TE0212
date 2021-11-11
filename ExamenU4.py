@@ -2,7 +2,7 @@
 En este archivo se desarrollaran todas las clases para el escenario propuesto
 """
 
-#CLASES ORIENTADAS AL MANEJO DE ERRORES
+#CLASES ORIENTADAS AL MANEJO DE ERRORES -------------------------------------
 class misErrores(Exception):
     """Clase base para las excepciones de este modulo."""
     pass
@@ -14,7 +14,7 @@ class RangoError(misErrores):
 
 
 
-#CLASES ORIENTADAS AL SUJETO
+#CLASES ORIENTADAS AL SUJETO -------------------------------------
 class Persona:
 
     def __init__(self,nombre,apellidos,edad,altura,peso,saldoCuenta,fechaNacimiento,estudios,carrera=None,energia=10):
@@ -138,7 +138,7 @@ class Empleado(Persona):
         print("Gracias por su trabajo, nos vemos la semana entrante")
 
 
-#CLASES DE INTERACCION
+#CLASES DE INTERACCION -------------------------------------
 class Producto:
     def __init__(self,nombre,precio,categoria,descripcion):
         self.__nombre = nombre
@@ -159,6 +159,7 @@ class Producto:
         return self.__descripcion
 
 
+#CLASES DE ESTABLECIMIENTOS PARA INTERACTUAR -------------------------------------
 class EstablecimientoDeServicios:
     def __init__(self,nombre,direccion,dueño,giro):
         self.__nombreEst = nombre
@@ -211,6 +212,14 @@ class Supermercado(EstablecimientoDeServicios):
         print(Comprador.getNombre(),"ha comprado: ",self.productos[productoComp-1].printNombre())
         Comprador.comprar()     #Reflejamos fatiga tras ir de compras
 
+
+class CYC(EstablecimientoDeServicios):
+    def __init__(self,nombre,direccion,dueño,giro,gerente,finanzas,produccion,marketing=None):
+        super().__init__(nombre,direccion,dueño,giro)
+        self.__gerente = gerente
+        self.__finanzas = finanzas
+        self.__produccion = produccion
+        self.__marketing = marketing
 
 
 
