@@ -23,7 +23,7 @@ class Persona:
         self.__edad = edad
         self.__altura = altura
         self.__peso = peso
-        self.__credito = saldoCuenta
+        self.__credito = float(saldoCuenta)
         self.__nacimiento = fechaNacimiento
         self.__estudios = estudios
         self.__carrera = carrera
@@ -37,7 +37,6 @@ class Persona:
 
     def comprar(self):
         pass
-
 
     def dormir(self):
         print("Es hora de dormir, ha sido un dia muy largo...")
@@ -59,9 +58,9 @@ class Persona:
         self.__energia = self.__energia + (horas * 1)
 
     def obtenerEstado(self):
-        print("Actualmente : ",self.__nombre, "se encuentra:")
-        print("Energia:         ",self.__energia)
-        print("Saldo en cuenta: ", self.__credito)
+        print("Actualmente",self.__nombre, "se encuentra con:")
+        print("Energia:             ",self.__energia)
+        print("Saldo en cuenta ($): ", self.__credito)
 
 
     def comer(self):
@@ -107,6 +106,87 @@ class Empleado(Persona):
         super().setCredito(pago)
         print(super().getNombre(),"usted ha recibido: $",self.__salario)
         print("Gracias por su trabajo, nos vemos la semana entrante")
+
+
+#CLASES DE INTERACCION
+class Producto:
+    def __init__(self,nombre,precio,categoria,descripcion):
+        self.__nombre = nombre
+        self.__precio = int(precio)
+        self.__categoria = categoria
+        self.__descripcion = descripcion
+
+    def printNombre(self):
+        return self.__nombre
+
+    def getPrecio(self):
+        return self.__precio
+
+    def getCategoria(self):
+        return self.__categoria
+
+    def getDescripcion(self):
+        return self.__descripcion
+
+
+class EstablecimientoDeServicios:
+    def __init__(self,nombre,direccion,dueño,giro):
+        self.__nombreEst = nombre
+        self.__direccion = direccion
+        self.__dueño = dueño
+        self.__giro = giro
+
+    def getNombreEst(self):
+        return self.__nombreEst
+
+    def getDireccion(self):
+        return self.__direccion
+
+    def getDueño(self):
+        return self.__dueño
+
+    def getGiro(self):
+        return self.__giro
+
+class Supermercado(EstablecimientoDeServicios):
+    def __init__(self,nombre,direccion,dueño,giro,productos,ingresos):
+        super().__init__(nombre,direccion,dueño,giro)
+        self.productos = productos
+        self.ingresos = ingresos
+
+    def vender(self,Comprador):
+        i=1
+        #Presentamos articulos a vender
+        for articulos in (self.productos):
+            print("{}.- {}. --> Precio: {}".format(i,articulos.printNombre(),articulos.getPrecio()))
+            i=i+1
+
+        #Solicitaremos el articulo a comprar
+        while True:
+            try:
+                productoComp = int(input("¿Que producto llevaras? (Ingrese el numero correspondiente): "))
+                if ((productoComp<0) & (productoComp>10)):
+                    raise RangoError("RangoError")
+                else:
+                    break
+
+            except RangoError:
+                print("Recuerda que solo podemos elegir articulos en la existencia mostrada")
+
+            except ValueError:
+                print(self.__nombre," el valor que ingresaste no es totalmente numerico")
+
+        #Compra realizada con cargo a la persona instanciada
+        cargo = (self.productos[productoComp-1].getPrecio())
+        credito = Comprador.getCredito()
+        Comprador.setCredito(credito-cargo)
+        self.ingresos = self.ingresos + cargo
+
+
+
+
+
+
 
 
 
