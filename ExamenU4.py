@@ -28,18 +28,40 @@ class Persona:
         self.__estudios = estudios
         self.__carrera = carrera
         self.__energia = energia
-        self.__guardaropa = []
-        self.__alacena = []
+        self.guardaropa = []
+        self.alacena = []
 
+    #Metodos para agregar productos al armario y alacena
+    def addAlacena(self,objeto):
+        self.alacena.append(objeto)
 
-    def vestir(self):
-        pass
+    def getAlacena(self):
+        return self.alacena
+
+    def addGuardaropa(self,objeto):
+        self.guardaropa.append(objeto)
+
+    def getGuardaropa(self):
+        return self.guardaropa
+
+    #Metodos comunes
+    def mostrarGuardaropa(self):
+        print("¿Que usaremos el dia de hoy?")
+        j=0
+        for prendas in self.guardaropa:
+            print(j,".- ",prendas.printNombre(), "de caracteristicas: ",prendas.getDescripcion())
+            j=j+1
+        print("")
+
+    def vestir(self,numP:int):
+        print(self.__nombre, "esta usando: ",self.guardaropa[numP].printNombre(), "de caracteristicas: ",self.guardaropa[numP].getDescripcion())
 
     def comprar(self):
         pass
 
     def dormir(self):
         print("Es hora de dormir, ha sido un dia muy largo...")
+        print("")
         #Solicitaremos las horas para dormir
         while True:
             try:
@@ -61,6 +83,7 @@ class Persona:
         print("Actualmente",self.__nombre, "se encuentra con:")
         print("Energia:             ",self.__energia)
         print("Saldo en cuenta ($): ", self.__credito)
+        print("")
 
 
     def comer(self):
@@ -69,7 +92,7 @@ class Persona:
     def comprar(self):
         pass
 
-    #Metodo GETTER y SETTER
+    #Metodos GETTER y SETTER
     def getNombre(self):
         return self.__nombre
 
@@ -154,33 +177,31 @@ class Supermercado(EstablecimientoDeServicios):
         self.productos = productos
         self.ingresos = ingresos
 
-    def vender(self,Comprador):
+    def atenderVenta(self):
         i=1
         #Presentamos articulos a vender
+        print("¿Que producto llevaras?")
         for articulos in (self.productos):
             print("{}.- {}. --> Precio: {}".format(i,articulos.printNombre(),articulos.getPrecio()))
             i=i+1
+        print("")
 
-        #Solicitaremos el articulo a comprar
-        while True:
-            try:
-                productoComp = int(input("¿Que producto llevaras? (Ingrese el numero correspondiente): "))
-                if ((productoComp<0) & (productoComp>10)):
-                    raise RangoError("RangoError")
-                else:
-                    break
-
-            except RangoError:
-                print("Recuerda que solo podemos elegir articulos en la existencia mostrada")
-
-            except ValueError:
-                print(self.__nombre," el valor que ingresaste no es totalmente numerico")
-
+    def vender(self,Comprador,productoComp):
         #Compra realizada con cargo a la persona instanciada
         cargo = (self.productos[productoComp-1].getPrecio())
         credito = Comprador.getCredito()
         Comprador.setCredito(credito-cargo)
         self.ingresos = self.ingresos + cargo
+
+        #Agregamos articulo instanciado al comprador
+        if (self.productos[productoComp-1].getCategoria() == "COMIDA"):
+            Comprador.addAlacena(self.productos[productoComp-1])
+
+        else:
+            Comprador.addGuardaropa(self.productos[productoComp - 1])
+
+        #Confirmamos compra
+        print(Comprador.getNombre(),"ha comprado: ",self.productos[productoComp-1].printNombre())
 
 
 

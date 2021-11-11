@@ -20,6 +20,8 @@ camisa = E4.Producto("Camisa",250,"ROPA","Color Azul Marino")
 productos.append(camisa)
 corbata = E4.Producto("Corbata",100,"ROPA","Color Negro")
 productos.append(corbata)
+saco = E4.Producto("Saco",450,"ROPA","Color Negro con 3 BOTONES")
+productos.append(saco)
 
 #Productos de tipo: COMIDA
 huevo = E4.Producto("Huevo",3,"COMIDA","Huevo San Rafael")
@@ -38,6 +40,28 @@ Chedraui = E4.Supermercado("Chedraui","Zona Centro","Don Chedraui","VENTAS",prod
 
 #Instanciamos EMPLEADO - PERSONA de enfoque o interes
 Franco = E4.Empleado("C&C",8000,"Gerente",8,"Franco","Calzadas",25,1.80,77,10000,"07-03-2030","Licenciatura","Ing Mecatronica",10)
-Franco.obtenerEstado()
-Chedraui.vender(Franco)
-Franco.obtenerEstado()
+
+Franco.obtenerEstado()          #Observamos el estado de cuenta y energia inicial
+Chedraui.atenderVenta()
+Chedraui.vender(Franco,1)
+Chedraui.vender(Franco,2)
+Chedraui.vender(Franco,3)
+Chedraui.vender(Franco,4)
+Chedraui.vender(Franco,5)
+Chedraui.vender(Franco,6)
+Chedraui.vender(Franco,7)
+Chedraui.vender(Franco,8)
+Chedraui.vender(Franco,9)
+Chedraui.vender(Franco,10)
+Chedraui.vender(Franco,11)
+
+Franco.obtenerEstado()          #Observamos el estado de cuenta tras compras realizadas
+
+Franco.mostrarGuardaropa()
+Franco.vestir(0)
+Franco.vestir(1)
+Franco.vestir(2)
+Franco.vestir(3)
+Franco.vestir(4)
+Franco.vestir(5)
+Franco.vestir(6)
