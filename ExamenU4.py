@@ -17,7 +17,7 @@ class RangoError(misErrores):
 #CLASES ORIENTADAS AL SUJETO -------------------------------------
 class Persona:
 
-    def __init__(self,nombre,apellidos,edad,altura,peso,saldoCuenta,fechaNacimiento,estudios,carrera=None,energia=10):
+    def __init__(self,nombre,apellidos,edad,altura,peso,saldoCuenta,fechaNacimiento,estudios,telefono,carrera=None,energia=10):
         self.__nombre = nombre
         self.__apellidos = apellidos
         self.__edad = edad
@@ -27,6 +27,7 @@ class Persona:
         self.__nacimiento = fechaNacimiento
         self.__estudios = estudios
         self.__carrera = carrera
+        self.__telefono = telefono
         self.__energia = energia
         self.guardaropa = []
         self.alacena = []
@@ -103,6 +104,21 @@ class Persona:
     def getNombre(self):
         return self.__nombre
 
+    def getApellidos(self):
+        return self.__apellidos
+
+    def getEdad(self):
+        return self.__edad
+
+    def getEstudios(self):
+        return self.__estudios
+
+    def getCarrera(self):
+        return self.__carrera
+
+    def getTelefono(self):
+        return self.__telefono
+
     def getEnergia(self):
         return self.__energia
 
@@ -117,12 +133,12 @@ class Persona:
 
 
 class Empleado(Persona):
-    def __init__(self,empresa,salario,puesto,jornada,nombre,apellidos,edad,altura,peso,saldoCuenta,fechaNacimiento,estudios,carrera=None,energia=10):
+    def __init__(self,empresa,salario,puesto,jornada,nombre,apellidos,edad,altura,peso,saldoCuenta,fechaNacimiento,estudios,telefono,carrera=None,energia=10):
         self.__empresa = empresa
         self.__salario = salario
         self.__puesto = puesto
         self.__jornada = jornada
-        super().__init__(nombre,apellidos,edad,altura,peso,saldoCuenta,fechaNacimiento,estudios,carrera,energia)
+        super().__init__(nombre,apellidos,edad,altura,peso,saldoCuenta,fechaNacimiento,estudios,telefono,carrera,energia)
         self.__energia = super().getEnergia()
 
     def trabajar(self):
@@ -136,6 +152,10 @@ class Empleado(Persona):
         super().setCredito(pago)
         print(super().getNombre(),"usted ha recibido: $",self.__salario)
         print("Gracias por su trabajo, nos vemos la semana entrante")
+
+    #Metodos GETTER Y SETTER
+    def getPuesto(self):
+        return self.__puesto
 
 
 #CLASES DE INTERACCION -------------------------------------
@@ -220,6 +240,70 @@ class CYC(EstablecimientoDeServicios):
         self.__finanzas = finanzas
         self.__produccion = produccion
         self.__marketing = marketing
+        self.entrevistados = []
+
+    def pagar(self,trabajador):
+        pass
+
+    def gestionarFinanzas(self,trabajador):
+        if (trabajador.getPuesto == "Director Finanzas"):
+            print(trabajador.getNombre(),"ha comenzado la gestion de Finanzas...")
+
+        else:
+            print(trabajador.getNombre(),"no corresponde al area de Finanzas, por lo tanto no puede Gestionar las Finanzas")
+
+    def iniciarProduccion(self, trabajador):
+        if (trabajador.getPuesto == "Supervisor de Produccion"):
+            print(trabajador.getNombre(), "ha iniciado la produccion del dia...")
+
+        else:
+            print(trabajador.getNombre(),"no corresponde al area de Produccion, por lo tanto no puede iniciar las ordenes del dia")
+
+    def gestionarRedesSociales(self, trabajador):
+        if (trabajador.getPuesto == "Marketing"):
+            print(trabajador.getNombre(), "ha comenzado la administracion de publicaciones en redes...")
+
+        else:
+            print(trabajador.getNombre(),"no corresponde al area de Marketing, por lo tanto no puede publicar en las redes de la empresa")
+
+    def contratar(self, trabajador):
+        if (trabajador.getPuesto == "Gerente"):
+            print(trabajador.getNombre(), "ha comenzado las visorias para contratar")
+
+        else:
+            print(trabajador.getNombre(),"no corresponde al area de Gerencia, por lo tanto no puede recibir los candidatos a contratar")
+
+    def entrevistar(self, gerente,solicitante):
+        baseTemporal=[]
+        if (gerente.getPuesto == "Gerente"):
+            print(gerente.getNombre(),"esta entrevistando a: ",solicitante.getNombre())
+            print("Gerente: Hola, bienvenido a C&C,mi nombre es: ",gerente.getNombre(),"soy el gerente y comenzaremos el proceso de entrevista. ¿Cual es tu nombre?")
+            print("Solicitante: Mi nombre es: ",solicitante.getNombre())
+            print("Gerente: ¿Cuales son tus apellidos?")
+            print("Solicitante: Mis apellidos son: ", solicitante.getApellidos())
+            print("Gerente: ¿Cuantos años tienes?")
+            print("Solicitante: Cuento con: ", solicitante.getEdad(),"años señor")
+            print("Gerente: ¿Cual es tu numero telefonico?")
+            print("Solicitante: Mi numero es: ", solicitante.getTelefono())
+            print("Gerente: ¿Cual es tu nivel maximo de estudios?")
+            print("Solicitante: Estudie la: ", solicitante.getEstudios(), "señor")
+            print("Gerente: ¿Cual es tu area de estudios o carrera?")
+            print("Solicitante: Mi carrra es: ", solicitante.getCarrera())
+            print("Gerente: De acuerdo ",solicitante.getNombre(),"tenemos la informacion necesaria, tenemos tu numero telefonico, nostros te llamamos")
+
+            #Almacenamos la informacion de cada entrevista para su posterior analisis
+            baseTemporal=[solicitante.getNombre(),solicitante.getApellidos(),solicitante.getEdad(),solicitante.getTelefono(),solicitante.getEstudios(),solicitante.getCarrera()]
+            self.entrevistados.append(baseTemporal)
+            baseTemporal.clear()
+
+        else:
+            print(gerente.getNombre(),"no corresponde al area de Gerencia, por lo tanto no puede recibir los candidatos a contratar")
+
+
+
+
+
+
 
 
 

@@ -39,7 +39,7 @@ Chedraui = E4.Supermercado("Chedraui","Zona Centro","Don Chedraui","VENTAS",prod
 
 
 #Instanciamos EMPLEADO - PERSONA de enfoque o interes
-Franco = E4.Empleado("C&C",8000,"Gerente",8,"Franco","Calzadas",25,1.80,77,10000,"07-03-2030","Licenciatura","Ing Mecatronica",10)
+Franco = E4.Empleado("C&C",8000,"Gerente",8,"Franco","Calzadas",25,1.80,77,10000,"07-03-2030","Licenciatura",2313195814,"Ing Mecatronica",10)
 Franco.obtenerEstado()          #Observamos el estado de cuenta y energia inicial
 
 #FRANCO PROCEDE A DORMIR (A partir de este punto inicia la interaccion en el dia a dia de Franco)
