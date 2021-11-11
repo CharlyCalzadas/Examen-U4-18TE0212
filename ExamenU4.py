@@ -55,9 +55,19 @@ class Persona:
 
     def vestir(self,numP:int):
         print(self.__nombre, "esta usando: ",self.guardaropa[numP].printNombre(), "de caracteristicas: ",self.guardaropa[numP].getDescripcion())
+        self.__energia = self.__energia - 0.1
 
-    def comprar(self):
-        pass
+    def mostrarAlacena(self):
+        print("¿Desea consumir algo?")
+        j=0
+        for alimentos in self.alacena:
+            print(j,".- ",alimentos.printNombre())
+            j=j+1
+        print("")
+
+    def comer(self,numA:int):
+        print(self.__nombre, "esta consumiendo: ",self.alacena[numA].printNombre())
+        self.__energia = self.__energia + 0.8
 
     def dormir(self):
         print("Es hora de dormir, ha sido un dia muy largo...")
@@ -66,7 +76,7 @@ class Persona:
         while True:
             try:
                 horas = float(input("¿Cuantas horas dormiremos? (Maximo podemos dormir 10 hrs): "))
-                if ((horas<0) & (horas>10)):
+                if ((horas<0) | (horas>10)):
                     raise RangoError("RangoError")
                 else:
                     break
@@ -80,17 +90,14 @@ class Persona:
         self.__energia = self.__energia + (horas * 1)
 
     def obtenerEstado(self):
+        print("")
         print("Actualmente",self.__nombre, "se encuentra con:")
         print("Energia:             ",self.__energia)
         print("Saldo en cuenta ($): ", self.__credito)
         print("")
 
-
-    def comer(self):
-        pass
-
     def comprar(self):
-        pass
+        self.__energia = self.__energia - 0.15
 
     #Metodos GETTER y SETTER
     def getNombre(self):
@@ -119,7 +126,7 @@ class Empleado(Persona):
         self.__energia = super().getEnergia()
 
     def trabajar(self):
-        print(super().getNombre()," ha iniciado su jornada laboral de: ",self.__jornada," horas")
+        print(super().getNombre()," ha iniciado su jornada laboral de: ",self.__jornada," horas en", self.__empresa)
         self.__energia = self.__energia - (self.__jornada * 0.5)
         super().setEnergia(self.__energia)
 
@@ -202,6 +209,7 @@ class Supermercado(EstablecimientoDeServicios):
 
         #Confirmamos compra
         print(Comprador.getNombre(),"ha comprado: ",self.productos[productoComp-1].printNombre())
+        Comprador.comprar()     #Reflejamos fatiga tras ir de compras
 
 
 
