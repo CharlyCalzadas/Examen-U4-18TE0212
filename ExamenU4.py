@@ -70,7 +70,45 @@ class Persona:
     def comprar(self):
         pass
 
+    #Metodo GETTER y SETTER
+    def getNombre(self):
+        return self.__nombre
+
+    def getEnergia(self):
+        return self.__energia
+
+    def getCredito(self):
+        return self.__credito
+
+    def setEnergia(self,newEnergia):
+        self.__energia = newEnergia
+
+    def setCredito(self,newCredito):
+        self.__credito = newCredito
+
 
 class Empleado(Persona):
-    def __init__(self,nombre,apellidos,edad,altura,peso,saldoCuenta,fechaNacimiento,estudios,carrera=None,energia=10,):
+    def __init__(self,empresa,salario,puesto,jornada,nombre,apellidos,edad,altura,peso,saldoCuenta,fechaNacimiento,estudios,carrera=None,energia=10):
+        self.__empresa = empresa
+        self.__salario = salario
+        self.__puesto = puesto
+        self.__jornada = jornada
         super().__init__(nombre,apellidos,edad,altura,peso,saldoCuenta,fechaNacimiento,estudios,carrera,energia)
+        self.__energia = super().getEnergia()
+
+    def trabajar(self):
+        print(super().getNombre()," ha iniciado su jornada laboral de: ",self.__jornada," horas")
+        self.__energia = self.__energia - (self.__jornada * 0.5)
+        super().setEnergia(self.__energia)
+
+    def recibirSalario(self):
+        print("Ha llegado el dia de pago correspondiente a su semana laboral")
+        pago = super().getCredito() + self.__salario
+        super().setCredito(pago)
+        print(super().getNombre(),"usted ha recibido: $",self.__salario)
+        print("Gracias por su trabajo, nos vemos la semana entrante")
+
+
+
+
+
