@@ -37,6 +37,15 @@ productos.append(chile)
 Chedraui = E4.Supermercado("Chedraui","Zona Centro","Don Chedraui","VENTAS",productos,0)
 
 
+#Instanciamos EMPLEADOS SECUNDARIOS DE EMPRESA
+Pablo = E4.Empleado("C&C",7500,"Supervisor de Produccion",8,"Pablo","Santiago",30,1.70,115,150000,"08-05-2000","Licenciatura",2311587589,"Ing Mecatronica",9)
+Eduardo = E4.Empleado("C&C",7500,"Director Finanzas",8,"Eduardo","Vazquez",30,1.68,70,85000,"05-11-2000","Licenciatura",2313694589,"Ing Mecatronica",9)
+Luis = E4.Empleado("C&C",7500,"Marketing",8,"Luis","Pozos",32,1.78,90,95000,"01-02-1998","Licenciatura",2315894721,"Ing Mecatronica",9)
+
+#Instanciamos PERSONAS (Sin empleo) para solicitar trabajo en C&C
+Julie = E4.Persona("Julie","Cid",29,1.65,52,120000,"01-09-2001","Licenciatura",2352554578,"Diseño Industrial",11)
+Grecia = E4.Persona("Grecia","Martinez",25,1.67,55,75000,"07-03-2030","Licenciatura",2382551446,"Ing Mecanico Electrica",11)
+Matt = E4.Persona("Mattew","Murdock",36,1.77,80,150000,"05-10-2002","Licenciatura",2318974556,"Ing Industrial",11)
 
 #Instanciamos EMPLEADO - PERSONA de enfoque o interes
 Franco = E4.Empleado("C&C",8000,"Gerente",8,"Franco","Calzadas",25,1.80,77,10000,"07-03-2030","Licenciatura",2313195814,"Ing Mecatronica",10)
@@ -91,5 +100,33 @@ Franco.obtenerEstado()          #Observamos la energia tras comer +AUMENTO
 #FRANCO PROCEDE A IR A TRABAJAR
 print("* Una vez descansado, vestido y desayunado, Franco procede a ir a trabajar")
 Franco.trabajar()
+
+
+
+#ANALIZAREMOS EL ENTORNO DE TRABAJO DE FRANCO YA QUE INICIO SU JORNADA LABORAL
+CYC = E4.CYC("C&C","Zona Industrial","Charly Calzadas","Manufactura",Franco,Eduardo,Pablo,Luis)
+
+print("* Inician las actividades del dia a dia en la empresa C&C correspondiente a su area")
+CYC.gestionarFinanzas(Eduardo)
+CYC.iniciarProduccion(Pablo)
+CYC.gestionarRedesSociales(Luis)
+
+print("")
+print("* Imaginemos que Franco desea realizar actividades del area que no le corresponde:")
+CYC.gestionarFinanzas(Franco)
+CYC.iniciarProduccion(Franco)
+CYC.gestionarRedesSociales(Franco)
+
+print("")
+print("* Sin embargo, Franco al ser de gerencia puede comenzar con las visorias de contratacion")
+CYC.contratar(Franco)
+CYC.entrevistar(Franco,Grecia)
+CYC.entrevistar(Franco,Julie)
+CYC.entrevistar(Franco,Matt)
+
+print("* Una vez entrevistados, Franco procede a revisar las solicitudes")
+CYC.analizarSolicitantes(Franco)
+
+
 
 Franco.obtenerEstado()          #Observamos la energia tras una jornada de trabajo -DISMINUYO

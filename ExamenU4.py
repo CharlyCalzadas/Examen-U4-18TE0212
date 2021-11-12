@@ -145,6 +145,7 @@ class Empleado(Persona):
         print(super().getNombre()," ha iniciado su jornada laboral de: ",self.__jornada," horas en", self.__empresa)
         self.__energia = self.__energia - (self.__jornada * 0.5)
         super().setEnergia(self.__energia)
+        print("")
 
     def recibirSalario(self):
         print("Ha llegado el dia de pago correspondiente a su semana laboral")
@@ -156,6 +157,7 @@ class Empleado(Persona):
     #Metodos GETTER Y SETTER
     def getPuesto(self):
         return self.__puesto
+
 
 
 #CLASES DE INTERACCION -------------------------------------
@@ -234,7 +236,7 @@ class Supermercado(EstablecimientoDeServicios):
 
 
 class CYC(EstablecimientoDeServicios):
-    def __init__(self,nombre,direccion,dueño,giro,gerente,finanzas,produccion,marketing=None):
+    def __init__(self,nombre,direccion,dueño,giro,gerente,finanzas,produccion,marketing,diseño=None):
         super().__init__(nombre,direccion,dueño,giro)
         self.__gerente = gerente
         self.__finanzas = finanzas
@@ -246,58 +248,82 @@ class CYC(EstablecimientoDeServicios):
         pass
 
     def gestionarFinanzas(self,trabajador):
-        if (trabajador.getPuesto == "Director Finanzas"):
+        if (trabajador.getPuesto() == "Director Finanzas"):
             print(trabajador.getNombre(),"ha comenzado la gestion de Finanzas...")
 
         else:
             print(trabajador.getNombre(),"no corresponde al area de Finanzas, por lo tanto no puede Gestionar las Finanzas")
 
     def iniciarProduccion(self, trabajador):
-        if (trabajador.getPuesto == "Supervisor de Produccion"):
+        if (trabajador.getPuesto() == "Supervisor de Produccion"):
             print(trabajador.getNombre(), "ha iniciado la produccion del dia...")
 
         else:
             print(trabajador.getNombre(),"no corresponde al area de Produccion, por lo tanto no puede iniciar las ordenes del dia")
 
     def gestionarRedesSociales(self, trabajador):
-        if (trabajador.getPuesto == "Marketing"):
+        if (trabajador.getPuesto() == "Marketing"):
             print(trabajador.getNombre(), "ha comenzado la administracion de publicaciones en redes...")
 
         else:
             print(trabajador.getNombre(),"no corresponde al area de Marketing, por lo tanto no puede publicar en las redes de la empresa")
 
     def contratar(self, trabajador):
-        if (trabajador.getPuesto == "Gerente"):
+        if (trabajador.getPuesto() == "Gerente"):
             print(trabajador.getNombre(), "ha comenzado las visorias para contratar")
+            print("")
 
         else:
             print(trabajador.getNombre(),"no corresponde al area de Gerencia, por lo tanto no puede recibir los candidatos a contratar")
 
     def entrevistar(self, gerente,solicitante):
         baseTemporal=[]
-        if (gerente.getPuesto == "Gerente"):
-            print(gerente.getNombre(),"esta entrevistando a: ",solicitante.getNombre())
-            print("Gerente: Hola, bienvenido a C&C,mi nombre es: ",gerente.getNombre(),"soy el gerente y comenzaremos el proceso de entrevista. ¿Cual es tu nombre?")
-            print("Solicitante: Mi nombre es: ",solicitante.getNombre())
-            print("Gerente: ¿Cuales son tus apellidos?")
-            print("Solicitante: Mis apellidos son: ", solicitante.getApellidos())
-            print("Gerente: ¿Cuantos años tienes?")
-            print("Solicitante: Cuento con: ", solicitante.getEdad(),"años señor")
-            print("Gerente: ¿Cual es tu numero telefonico?")
-            print("Solicitante: Mi numero es: ", solicitante.getTelefono())
-            print("Gerente: ¿Cual es tu nivel maximo de estudios?")
-            print("Solicitante: Estudie la: ", solicitante.getEstudios(), "señor")
-            print("Gerente: ¿Cual es tu area de estudios o carrera?")
-            print("Solicitante: Mi carrra es: ", solicitante.getCarrera())
-            print("Gerente: De acuerdo ",solicitante.getNombre(),"tenemos la informacion necesaria, tenemos tu numero telefonico, nostros te llamamos")
+        if (gerente.getPuesto() == "Gerente"):
+            print(gerente.getNombre(),"esta entrevistando a ",solicitante.getNombre())
+            print("+Gerente: Hola, bienvenido a C&C,mi nombre es: ",gerente.getNombre(),"soy el gerente y comenzaremos el proceso de entrevista. ¿Cual es tu nombre?")
+            print("-Solicitante: Mi nombre es: ",solicitante.getNombre())
+            print("+Gerente: ¿Cuales son tus apellidos?")
+            print("-Solicitante: Mis apellidos son: ", solicitante.getApellidos())
+            print("+Gerente: ¿Cuantos años tienes?")
+            print("-Solicitante: Cuento con: ", solicitante.getEdad(),"años señor")
+            print("+Gerente: ¿Cual es tu numero telefonico?")
+            print("-Solicitante: Mi numero es: ", solicitante.getTelefono())
+            print("+Gerente: ¿Cual es tu nivel maximo de estudios?")
+            print("-Solicitante: Estudie la: ", solicitante.getEstudios(), "señor")
+            print("+Gerente: ¿Cual es tu area de estudios o carrera?")
+            print("-Solicitante: Mi carrra es: ", solicitante.getCarrera())
+            print("+Gerente: De acuerdo ",solicitante.getNombre(),"tenemos la informacion necesaria, tenemos tu numero telefonico, nostros te llamamos")
+            print(" ")
 
             #Almacenamos la informacion de cada entrevista para su posterior analisis
             baseTemporal=[solicitante.getNombre(),solicitante.getApellidos(),solicitante.getEdad(),solicitante.getTelefono(),solicitante.getEstudios(),solicitante.getCarrera()]
             self.entrevistados.append(baseTemporal)
-            baseTemporal.clear()
 
         else:
             print(gerente.getNombre(),"no corresponde al area de Gerencia, por lo tanto no puede recibir los candidatos a contratar")
+
+    def analizarSolicitantes(self,gerente):
+        if (gerente.getPuesto() == "Gerente"):
+            i=0
+            for solicitantes in self.entrevistados:
+               print("SOLICITANTE NUMERO: ",i,"------------------")
+               print("Nombre: ",solicitantes[0])
+               print("Apellidos: ", solicitantes[1])
+               print("Edad: ", solicitantes[2])
+               print("Telefono: ", solicitantes[3])
+               print("Nivel de estudios: ", solicitantes[4])
+               print("Carrera: ", solicitantes[5])
+               print(" ")
+               i=i+1
+
+        else:
+            print(gerente.getNombre(),"no corresponde al area de Gerencia, por lo tanto no puede recibir los candidatos a contratar")
+
+
+
+
+
+
 
 
 
