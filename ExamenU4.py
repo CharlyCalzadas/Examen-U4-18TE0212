@@ -243,9 +243,29 @@ class CYC(EstablecimientoDeServicios):
         self.__produccion = produccion
         self.__marketing = marketing
         self.entrevistados = []
+        self.empleados = []
+        self.ObjEntrevitados = []
 
-    def pagar(self,trabajador):
-        pass
+    def addEmpleado(self,gerente,empleado):
+        if (gerente.getPuesto() == "Gerente"):
+            baseTemporal=[empleado.getNombre(),empleado.getApellidos(),empleado.getEdad(),empleado.getTelefono(),empleado.getEstudios(),empleado.getCarrera()]
+            self.empleados.append(baseTemporal)
+
+        else:
+            print(gerente.getNombre(),"no corresponde al area de Gerencia, por lo tanto no puede recibir agregar los empleados vigentes")
+
+    def verEmpleadosContratados(self):
+        i = 0
+        for empleados in self.empleados:
+            print("EMPLEADO NUMERO: ", i, "------------------")
+            print("Nombre: ", empleados[0])
+            print("Apellidos: ", empleados[1])
+            print("Edad: ", empleados[2])
+            print("Telefono: ", empleados[3])
+            print("Nivel de estudios: ", empleados[4])
+            print("Carrera: ", empleados[5])
+            print(" ")
+            i = i + 1
 
     def gestionarFinanzas(self,trabajador):
         if (trabajador.getPuesto() == "Director Finanzas"):
@@ -268,7 +288,7 @@ class CYC(EstablecimientoDeServicios):
         else:
             print(trabajador.getNombre(),"no corresponde al area de Marketing, por lo tanto no puede publicar en las redes de la empresa")
 
-    def contratar(self, trabajador):
+    def iniciarVisorias(self, trabajador):
         if (trabajador.getPuesto() == "Gerente"):
             print(trabajador.getNombre(), "ha comenzado las visorias para contratar")
             print("")
@@ -298,6 +318,7 @@ class CYC(EstablecimientoDeServicios):
             #Almacenamos la informacion de cada entrevista para su posterior analisis
             baseTemporal=[solicitante.getNombre(),solicitante.getApellidos(),solicitante.getEdad(),solicitante.getTelefono(),solicitante.getEstudios(),solicitante.getCarrera()]
             self.entrevistados.append(baseTemporal)
+            self.ObjEntrevitados.append(solicitante)
 
         else:
             print(gerente.getNombre(),"no corresponde al area de Gerencia, por lo tanto no puede recibir los candidatos a contratar")
@@ -317,9 +338,32 @@ class CYC(EstablecimientoDeServicios):
                i=i+1
 
         else:
-            print(gerente.getNombre(),"no corresponde al area de Gerencia, por lo tanto no puede recibir los candidatos a contratar")
+            print(gerente.getNombre(),"no corresponde al area de Gerencia, por lo tanto no puede ver los candidatos a contratar")
 
+    def contratar(self,gerente):
+        if (gerente.getPuesto() == "Gerente"):
+            # Solicitaremos la persona a contratar
+            while True:
+                try:
+                    contratado = int(input("¿Ingrese el numero de entrevista correspondiente al postulado seleccionado?: "))
+                    if ((contratado < 0) | (contratado > 3)):
+                        raise RangoError("RangoError")
+                    else:
+                        break
 
+                except RangoError:
+                    print(self.__nombre, " ingrese un numero de entrevista existente")
+
+                except ValueError:
+                    print(self.__nombre, " el valor que ingresaste no es totalmente numerico")
+
+            print("*Nuestro nuevo elemento en el area de diseño es ",self.entrevistados[contratado][0])
+            print("*Llamando a: ",self.entrevistados[contratado][3],"...")
+            print("Hola ",self.entrevistados[contratado][0],"habla",gerente.getNombre(),"gerente en C&C para notificar que ha sido contratado, muchas felicidades y bienvenido al equipo de trabajo")
+            self.addEmpleado(gerente,self.ObjEntrevitados[contratado])
+
+        else:
+            print(gerente.getNombre(),"no corresponde al area de Gerencia, por lo tanto no puede contratar")
 
 
 

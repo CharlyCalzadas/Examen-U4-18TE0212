@@ -1,5 +1,6 @@
 """
 MAIN. En este archivo se accedera a todas las clases desarrolladas y se trabajara con ellas
++Se presentan impresiones como guia para el proceso en consola
 """
 
 import ExamenU4 as E4
@@ -118,15 +119,29 @@ CYC.iniciarProduccion(Franco)
 CYC.gestionarRedesSociales(Franco)
 
 print("")
-print("* Sin embargo, Franco al ser de gerencia puede comenzar con las visorias de contratacion")
-CYC.contratar(Franco)
+print("* Sin embargo, Franco al ser de gerencia puede comenzar por agregar a un registro todos los empleados vigentes contratados")
+CYC.addEmpleado(Franco,Eduardo)
+CYC.addEmpleado(Franco,Pablo)
+CYC.addEmpleado(Franco,Pablo)
+CYC.verEmpleadosContratados()
+
+
+CYC.iniciarVisorias(Franco)
 CYC.entrevistar(Franco,Grecia)
 CYC.entrevistar(Franco,Julie)
 CYC.entrevistar(Franco,Matt)
 
-print("* Una vez entrevistados, Franco procede a revisar las solicitudes")
+print("* Una vez entrevistados, Franco procede a revisar las solicitudes y contratar a algun candidato")
 CYC.analizarSolicitantes(Franco)
+CYC.contratar(Franco)
+
+print("")
+print("* Una vez contratado el candidato, observamos como aparece ahora en el registro de la empresa C&C")
+CYC.verEmpleadosContratados()
 
 
-
+print("* Finalmente, al finalizar la jornada de trabajo Franco regresa a casa y observa su estatus de energia")
 Franco.obtenerEstado()          #Observamos la energia tras una jornada de trabajo -DISMINUYO
+
+print("* Observamos que ha tenido un dia bastante largo, deberia comer un poco y dormir, ¿O tú qué opinas programador?")
+print("Por Calzadas Rosalino Charly. ITST Ingenieria Mecatronica. 18TE0212 :)")
